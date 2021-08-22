@@ -1,0 +1,3 @@
+/home/crimsonpurgatory/Documentos/Codigo C/CLion/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/crimsonpurgatory/Documentos/Codigo C/CLion/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/crimsonpurgatory/Documentos/Codigo C/CLion/cmake-build-debug/CMakeFiles/CLion.dir
