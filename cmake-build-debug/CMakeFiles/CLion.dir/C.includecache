@@ -9,12 +9,6 @@
 /home/crimsonpurgatory/Documentos/Codigo C/CLion/main.c
 stdio.h
 -
-string.h
--
-math.h
--
-time.h
--
 stdlib.h
 -
 windows.h
