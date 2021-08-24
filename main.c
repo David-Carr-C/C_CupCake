@@ -1,5 +1,6 @@
 #include <stdio.h>
-//#include <string.h>
+#include <string.h>
+#include <stdbool.h> //para habilitar "bool a;"
 //#include <math.h>
 //#include <time.h>
 #include <stdlib.h>
@@ -19,9 +20,38 @@ void limpiarPantalla()
     #endif
 }
 
+void resumen(bool a,bool b,bool c,bool d,bool e,bool f,bool g,bool h) {
+    printf("Usted ha elegido: \n");//Usar los booleanos para displayear las opciones que ha elegido, y tal vez escribir esto en files
+    if (a==true) {
+        printf("Mantenimiento Preventivo\n");
+    }
+    if (b==true) {
+        printf("Reparacion de Motor\n");
+    }
+    if (c==true) {
+        printf("Carga de Bateria\n");
+    }
+    if (d==true) {
+        printf("Reparacion de Aire acondicionado\n");
+    }
+    if (e==true) {
+        printf("Reparacion de Discos de frenado\n");
+    }
+    if (f==true) {
+        printf("Cambio de Liquido de frenos\n");
+    }
+    if (g==true) {
+        printf("Cambio de Ruedas\n");
+    }
+    if (h==true) {
+        printf("Reparacion de Limpiaparabrisas\n");
+    }
+}
+
 int main()
 {
     char nombre[50], direccion[50], placa[20], modelo[20], anio[20], pais[20]; //Las string que ocuparemos para guardar los datos del usuario
+    char trabajo[2]; //string para la validacion y saber si se procede el trabajo
     limpiarPantalla(); //limpiar pantalla como dice la funcion
     printf("--Bienvenido al Taller Mecanico--\n"); //Mejorar apartado de apariencia //Bienvenida
     printf("Por favor, rellene los siguientes datos\n"); //Pedir los datos del usuario
@@ -46,6 +76,7 @@ int main()
     float contador = 0; //Este sera el contador de los costos que el usuario ira acumulando debido a las reparaciones y opciones que el pide
     //^ Sera bueno usar float or double?
     //printf("Este cambio surgio efecto?\n");
+    bool a = false, b = false, c = false, d = false, e = false, f = false, g = false, h = false; //booleanos para saber si la reparacion ha sido tomada o no
     do
     {
         printf("Seleccione una opcion:\na) Mantenimiento Preventivo\nb) Reparacion de Motor\nc) Carga de Bateria\n");//Poner las opciones de manera -
@@ -57,153 +88,215 @@ int main()
         switch (select)
         {
             case 'a':
-                //Esto es una opcion que podria ser mostrada en el menu
-                printf("El costo del \"Mantenimiento Preventivo\" es de: $1250 (pesos mexicanos)\n");
-                getchar();//Si es que se salta opciones/lecturas, habra que usar esto como flush
-                printf("Usted desea realizar este mantenimiento? (S/n): ");
-                char askmantenimiento;
-                scanf("%c",&askmantenimiento);
-                if (askmantenimiento=='S') {
-                    printf("Gracias por elegir este mantenimiento!\n");
-                    contador = contador + 1250; //tambien se puede usar contador+=1250
+                if (a!=true) {
+                    //Esto es una opcion que podria ser mostrada en el menu
+                    printf("El costo del \"Mantenimiento Preventivo\" es de: $1250 (pesos mexicanos)\n");
+                    getchar();//Si es que se salta opciones/lecturas, habra que usar esto como flush
+                    printf("Usted desea realizar este mantenimiento? (S/n): ");
+                    char askmantenimiento;
+                    scanf("%c",&askmantenimiento);
+                    if (askmantenimiento=='S') {
+                        printf("Gracias por elegir este mantenimiento!\n");
+                        a = true;
+                        contador = contador + 1250; //tambien se puede usar contador+=1250
+                    }
+                    else {
+                        printf("No se preocupe, siga eligiendo sin problemas\n");
+                    }
+                    //este flush ya no hace falta dado al flush del inicio del do while//getchar();//flushea el scanf <-
+                    printf("Siga eligiendo las reparaciones o mantenimientos que va a necesitar, o de \"Validar\" para proceder con el trabajo\n");//cambiar "ticket" a algo mas
                 }
                 else {
-                    printf("No se preocupe, siga eligiendo sin problemas\n");
+                    printf("Usted ya ha elegido esta opcion\n");
                 }
-                //este flush ya no hace falta dado al flush del inicio del do while//getchar();//flushea el scanf <-
-                printf("Siga eligiendo las reparaciones o mantenimientos que va a necesitar, o de \"Validar\" para proceder con el trabajo\n");//cambiar "ticket" a algo mas
                 break;
 
             case 'b':
-                //Esto es una opcion que podria ser mostrada en el menu
-                printf("El costo de la \"Reparacion de Motor\" es de: $5000 (pesos mexicanos)\n");
-                getchar();//Si es que se salta opciones/lecturas, habra que usar esto como flush
-                printf("Usted desea realizar esta reparacion? (S/n): ");
-                char askreparacion;
-                scanf("%c",&askreparacion);
-                if (askreparacion=='S') {
-                    printf("Gracias por elegir esta reparacion!\n");
-                    contador = contador + 5000; //tambien se puede usar contador+=1250
+                if (b!=true) {
+                    //Esto es una opcion que podria ser mostrada en el menu
+                    printf("El costo de la \"Reparacion de Motor\" es de: $5000 (pesos mexicanos)\n");
+                    getchar();//Si es que se salta opciones/lecturas, habra que usar esto como flush
+                    printf("Usted desea realizar esta reparacion? (S/n): ");
+                    char askreparacion;
+                    scanf("%c",&askreparacion);
+                    if (askreparacion=='S') {
+                        printf("Gracias por elegir esta reparacion!\n");
+                        b = true;
+                        contador = contador + 5000; //tambien se puede usar contador+=1250
+                    }
+                    else {
+                        printf("No se preocupe, siga eligiendo sin problemas\n");
+                    }
+                    //este flush ya no hace falta dado al flush del inicio del do while//getchar();//flushea el scanf <-
+                    printf("Siga eligiendo las reparaciones o mantenimientos que va a necesitar, o de \"Validar\" para proceder con el trabajo\n");//cambiar "ticket" a algo mas
                 }
                 else {
-                    printf("No se preocupe, siga eligiendo sin problemas\n");
+                    printf("Usted ya ha elegido esta opcion\n");
                 }
-                //este flush ya no hace falta dado al flush del inicio del do while//getchar();//flushea el scanf <-
-                printf("Siga eligiendo las reparaciones o mantenimientos que va a necesitar, o de \"Validar\" para proceder con el trabajo\n");//cambiar "ticket" a algo mas
                 break;
 
             case 'c':
-                //Esto es una opcion que podria ser mostrada en el menu
-                printf("El costo de la \"Carga de Bateria\" es de: $750.99 (pesos mexicanos)\n");
-                getchar();//Si es que se salta opciones/lecturas, habra que usar esto como flush
-                printf("Usted desea realizar este mantenimiento? (S/n): ");
-                char askbateria;
-                scanf("%c",&askbateria);
-                if (askbateria=='S') {
-                    printf("Gracias por elegir este mantenimiento!\n");
-                    contador = contador + 750.99f; //tambien se puede usar contador+=1250
+                if (c!=true) {
+                    //Esto es una opcion que podria ser mostrada en el menu
+                    printf("El costo de la \"Carga de Bateria\" es de: $750.99 (pesos mexicanos)\n");
+                    getchar();//Si es que se salta opciones/lecturas, habra que usar esto como flush
+                    printf("Usted desea realizar este mantenimiento? (S/n): ");
+                    char askbateria;
+                    scanf("%c",&askbateria);
+                    if (askbateria=='S') {
+                        printf("Gracias por elegir este mantenimiento!\n");
+                        c = true;
+                        contador = contador + 750.99f; //tambien se puede usar contador+=1250
+                    }
+                    else {
+                        printf("No se preocupe, siga eligiendo sin problemas\n");
+                    }
+                    //este flush ya no hace falta dado al flush del inicio del do while//getchar();//flushea el scanf <-
+                    printf("Siga eligiendo las reparaciones o mantenimientos que va a necesitar, o de \"Validar\" para proceder con el trabajo\n");//cambiar "ticket" a algo mas
                 }
                 else {
-                    printf("No se preocupe, siga eligiendo sin problemas\n");
+                    printf("Usted ya ha elegido esta opcion\n");
                 }
-                //este flush ya no hace falta dado al flush del inicio del do while//getchar();//flushea el scanf <-
-                printf("Siga eligiendo las reparaciones o mantenimientos que va a necesitar, o de \"Validar\" para proceder con el trabajo\n");//cambiar "ticket" a algo mas
+
                 break;
 
             case 'd':
-                //Esto es una opcion que podria ser mostrada en el menu
-                printf("El costo de la \"Reparacion de Aire acondicionado\" es de: $500.75 (pesos mexicanos)\n");
-                getchar();//Si es que se salta opciones/lecturas, habra que usar esto como flush
-                printf("Usted desea realizar esta reparacion? (S/n): ");
-                char askaire;
-                scanf("%c",&askaire);
-                if (askaire=='S') {
-                    printf("Gracias por elegir esta reparacion!\n");
-                    contador = contador + 500.75f; //tambien se puede usar contador+=1250
+                if (d!=true) {
+                    //Esto es una opcion que podria ser mostrada en el menu
+                    printf("El costo de la \"Reparacion de Aire acondicionado\" es de: $500.75 (pesos mexicanos)\n");
+                    getchar();//Si es que se salta opciones/lecturas, habra que usar esto como flush
+                    printf("Usted desea realizar esta reparacion? (S/n): ");
+                    char askaire;
+                    scanf("%c",&askaire);
+                    if (askaire=='S') {
+                        printf("Gracias por elegir esta reparacion!\n");
+                        d = true;
+                        contador = contador + 500.75f; //tambien se puede usar contador+=1250
+                    }
+                    else {
+                        printf("No se preocupe, siga eligiendo sin problemas\n");
+                    }
+                    //este flush ya no hace falta dado al flush del inicio del do while//getchar();//flushea el scanf <-
+                    printf("Siga eligiendo las reparaciones o mantenimientos que va a necesitar, o de \"Validar\" para proceder con el trabajo\n");//cambiar "ticket" a algo mas
                 }
                 else {
-                    printf("No se preocupe, siga eligiendo sin problemas\n");
+                    printf("Usted ya ha elegido esta opcion\n");
                 }
-                //este flush ya no hace falta dado al flush del inicio del do while//getchar();//flushea el scanf <-
-                printf("Siga eligiendo las reparaciones o mantenimientos que va a necesitar, o de \"Validar\" para proceder con el trabajo\n");//cambiar "ticket" a algo mas
                 break;
 
             case 'e':
-                //Esto es una opcion que podria ser mostrada en el menu
-                printf("El costo de la \"Reparacion de Discos de frenado\" es de: $1050.22 (pesos mexicanos)\n");
-                getchar();//Si es que se salta opciones/lecturas, habra que usar esto como flush
-                printf("Usted desea realizar esta reparacion? (S/n): ");
-                char askdiscos;
-                scanf("%c",&askdiscos);
-                if (askdiscos=='S') {
-                    printf("Gracias por elegir esta reparacion!\n");
-                    contador = contador + 1050.22f; //tambien se puede usar contador+=1250
+                if (e!=true) {
+                    //Esto es una opcion que podria ser mostrada en el menu
+                    printf("El costo de la \"Reparacion de Discos de frenado\" es de: $1050.22 (pesos mexicanos)\n");
+                    getchar();//Si es que se salta opciones/lecturas, habra que usar esto como flush
+                    printf("Usted desea realizar esta reparacion? (S/n): ");
+                    char askdiscos;
+                    scanf("%c",&askdiscos);
+                    if (askdiscos=='S') {
+                        printf("Gracias por elegir esta reparacion!\n");
+                        e = true;
+                        contador = contador + 1050.22f; //tambien se puede usar contador+=1250
+                    }
+                    else {
+                        printf("No se preocupe, siga eligiendo sin problemas\n");
+                    }
+                    //este flush ya no hace falta dado al flush del inicio del do while//getchar();//flushea el scanf <-
+                    printf("Siga eligiendo las reparaciones o mantenimientos que va a necesitar, o de \"Validar\" para proceder con el trabajo\n");//cambiar "ticket" a algo mas
                 }
                 else {
-                    printf("No se preocupe, siga eligiendo sin problemas\n");
+                    printf("Usted ya ha elegido esta opcion\n");
                 }
-                //este flush ya no hace falta dado al flush del inicio del do while//getchar();//flushea el scanf <-
-                printf("Siga eligiendo las reparaciones o mantenimientos que va a necesitar, o de \"Validar\" para proceder con el trabajo\n");//cambiar "ticket" a algo mas
                 break;
 
             case 'f':
-                //Esto es una opcion que podria ser mostrada en el menu
-                printf("El costo del \"Cambio de Liquido de frenos\" es de: $250 (pesos mexicanos)\n");
-                getchar();//Si es que se salta opciones/lecturas, habra que usar esto como flush
-                printf("Usted desea realizar este mantenimiento? (S/n): ");
-                char askfrenos;
-                scanf("%c",&askfrenos);
-                if (askfrenos=='S') {
-                    printf("Gracias por elegir este mantenimiento!\n");
-                    contador = contador + 250; //tambien se puede usar contador+=1250
+                if (f!=true) {
+                    //Esto es una opcion que podria ser mostrada en el menu
+                    printf("El costo del \"Cambio de Liquido de frenos\" es de: $250 (pesos mexicanos)\n");
+                    getchar();//Si es que se salta opciones/lecturas, habra que usar esto como flush
+                    printf("Usted desea realizar este mantenimiento? (S/n): ");
+                    char askfrenos;
+                    scanf("%c",&askfrenos);
+                    if (askfrenos=='S') {
+                        printf("Gracias por elegir este mantenimiento!\n");
+                        f = true;
+                        contador = contador + 250; //tambien se puede usar contador+=1250
+                    }
+                    else {
+                        printf("No se preocupe, siga eligiendo sin problemas\n");
+                    }
+                    //este flush ya no hace falta dado al flush del inicio del do while//getchar();//flushea el scanf <-
+                    printf("Siga eligiendo las reparaciones o mantenimientos que va a necesitar, o de \"Validar\" para proceder con el trabajo\n");//cambiar "ticket" a algo mas
                 }
                 else {
-                    printf("No se preocupe, siga eligiendo sin problemas\n");
+                    printf("Usted ya ha elegido esta opcion\n");
                 }
-                //este flush ya no hace falta dado al flush del inicio del do while//getchar();//flushea el scanf <-
-                printf("Siga eligiendo las reparaciones o mantenimientos que va a necesitar, o de \"Validar\" para proceder con el trabajo\n");//cambiar "ticket" a algo mas
                 break;
 
             case 'g':
-                //Esto es una opcion que podria ser mostrada en el menu
-                printf("El costo del \"Cambio de Ruedas\" es de: $1780 (pesos mexicanos)\n");
-                getchar();//Si es que se salta opciones/lecturas, habra que usar esto como flush
-                printf("Usted desea realizar este mantenimiento? (S/n): ");
-                char askruedas;
-                scanf("%c",&askruedas);
-                if (askruedas=='S') {
-                    printf("Gracias por elegir este mantenimiento!\n");
-                    contador = contador + 1780; //tambien se puede usar contador+=1250
+                if (g!=true) {
+                    //Esto es una opcion que podria ser mostrada en el menu
+                    printf("El costo del \"Cambio de Ruedas\" es de: $1780 (pesos mexicanos)\n");
+                    getchar();//Si es que se salta opciones/lecturas, habra que usar esto como flush
+                    printf("Usted desea realizar este mantenimiento? (S/n): ");
+                    char askruedas;
+                    scanf("%c",&askruedas);
+                    if (askruedas=='S') {
+                        printf("Gracias por elegir este mantenimiento!\n");
+                        g = true;
+                        contador = contador + 1780; //tambien se puede usar contador+=1250
+                    }
+                    else {
+                        printf("No se preocupe, siga eligiendo sin problemas\n");
+                    }
+                    //este flush ya no hace falta dado al flush del inicio del do while//getchar();//flushea el scanf <-
+                    printf("Siga eligiendo las reparaciones o mantenimientos que va a necesitar, o de \"Validar\" para proceder con el trabajo\n");//cambiar "ticket" a algo mas
                 }
                 else {
-                    printf("No se preocupe, siga eligiendo sin problemas\n");
+                    printf("Usted ya ha elegido esta opcion\n");
                 }
-                //este flush ya no hace falta dado al flush del inicio del do while//getchar();//flushea el scanf <-
-                printf("Siga eligiendo las reparaciones o mantenimientos que va a necesitar, o de \"Validar\" para proceder con el trabajo\n");//cambiar "ticket" a algo mas
                 break;
 
             case 'h':
-                //Esto es una opcion que podria ser mostrada en el menu
-                printf("El costo del \"Reparacion de Limpiaparabrisas\" es de: $777 (pesos mexicanos)\n");
-                getchar();//Si es que se salta opciones/lecturas, habra que usar esto como flush
-                printf("Usted desea realizar esta reparacion? (S/n): ");
-                char askparabrisas;
-                scanf("%c",&askparabrisas);
-                if (askparabrisas=='S') {
-                    printf("Gracias por elegir este mantenimiento!\n");
-                    contador = contador + 777; //tambien se puede usar contador+=1250
+                if (h!=true) {
+                    //Esto es una opcion que podria ser mostrada en el menu
+                    printf("El costo del \"Reparacion de Limpiaparabrisas\" es de: $777 (pesos mexicanos)\n");
+                    getchar();//Si es que se salta opciones/lecturas, habra que usar esto como flush
+                    printf("Usted desea realizar esta reparacion? (S/n): ");
+                    char askparabrisas;
+                    scanf("%c",&askparabrisas);
+                    if (askparabrisas=='S') {
+                        printf("Gracias por elegir este mantenimiento!\n");
+                        h = true;
+                        contador = contador + 777; //tambien se puede usar contador+=1250
+                    }
+                    else {
+                        printf("No se preocupe, siga eligiendo sin problemas\n");
+                    }
+                    //este flush ya no hace falta dado al flush del inicio del do while//getchar();//flushea el scanf <-
+                    printf("Siga eligiendo las reparaciones o mantenimientos que va a necesitar, o de \"Validar\" para proceder con el trabajo\n");//cambiar "ticket" a algo mas
                 }
                 else {
-                    printf("No se preocupe, siga eligiendo sin problemas\n");
+                    printf("Usted ya ha elegido esta opcion\n");
                 }
-                //este flush ya no hace falta dado al flush del inicio del do while//getchar();//flushea el scanf <-
-                printf("Siga eligiendo las reparaciones o mantenimientos que va a necesitar, o de \"Validar\" para proceder con el trabajo\n");//cambiar "ticket" a algo mas
                 break;
 
             case 'i':
                 getchar();//clean as fflush
-                printf("Deseas salir de la aplicacion? (S/n): ");
-                scanf("%c",&exit);
+                printf("Se procede con el trabajo? (SI/NO): "); //printf("Deseas salir de la aplicacion? (S/n): ");
+                scanf("%s",trabajo); //cargara una string dado a que el profe menciono "SI" or "NO"
+                if ((strcmp(trabajo,"SI"))==0) {
+                    printf("Creando ticket...\n");
+                    exit = 'S';
+                }
+                else if ((strcmp(trabajo,"NO"))==0){
+                    printf("Resumen: Cargando...\n");
+                    exit = 'S';
+                }
+                else {
+                    printf("Elija una opcion correcta\n");
+                    exit = 'n';
+                }
+                //scanf("%c",&exit);
                 // interesante... aprender goto -> goto end;
                 break; //este break solo libera el switch, lo demas no
                 //return 0; esto sirve, pero no creo que sea muy buena opcion o que la quieran ver
@@ -214,9 +307,22 @@ int main()
         }
         // getchar(); //no sirve este getchar, solo buguea//este getchar sirve?
         // poner un if para evitar que se vuelva a escribir el codigo de abajito? if
-        printf("Total a pagar: %.4f\n",contador); //El .4 es para displayear solo 4 decimales
+        if (exit!='S') {
+            printf("Total a pagar: %.2f\n",contador); //El .2 displayear solo 2 decimales //El .4 es para displayear solo 4 decimales
+        }
     } while (exit!='S');
     //interesante... que es "end:"?
+    if ((strcmp(trabajo,"SI"))==0) { //Conecta con el case 'i'
+        printf("Creando ticket...\n");
+        resumen(a,b,c,d,e,f,g,h);
+    }
+    else if ((strcmp(trabajo,"NO"))==0){ //Conecta con el case 'i'
+        printf("Resumen: Cargando...\n");
+        resumen(a,b,c,d,e,f,g,h);
+        printf("Vuelva pronto!\n");
+    }
+
+
     return 0;
 }
 //agregar base de datos?

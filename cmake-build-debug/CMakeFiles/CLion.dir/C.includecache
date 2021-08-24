@@ -9,6 +9,10 @@
 /home/crimsonpurgatory/Documentos/Codigo C/CLion/main.c
 stdio.h
 -
+string.h
+-
+stdbool.h
+-
 stdlib.h
 -
 windows.h
