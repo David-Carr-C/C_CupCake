@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/crimsonpurgatory/Documentos/Codigo C/CLion/main.c" "/home/crimsonpurgatory/Documentos/Codigo C/CLion/cmake-build-debug/CMakeFiles/CLion.dir/main.c.o"
+  "/home/crimsonpurgatory/Documentos/B-Programacion I && Selfstudy/Selfstudy/CLion/main.c" "/home/crimsonpurgatory/Documentos/B-Programacion I && Selfstudy/Selfstudy/CLion/cmake-build-debug/CMakeFiles/CLion.dir/main.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

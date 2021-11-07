@@ -20,7 +20,7 @@ void limpiarPantalla()
     #endif
 }
 
-void resumen(bool a,bool b,bool c,bool d,bool e,bool f,bool g,bool h) {
+void resumen(bool a,bool b,bool c,bool d,bool e,bool f,bool g,bool h, float contador) {
     printf("Usted ha elegido: \n");//Usar los booleanos para displayear las opciones que ha elegido, y tal vez escribir esto en files
     if (a==true) {
         printf("Mantenimiento Preventivo\n");
@@ -46,6 +46,8 @@ void resumen(bool a,bool b,bool c,bool d,bool e,bool f,bool g,bool h) {
     if (h==true) {
         printf("Reparacion de Limpiaparabrisas\n");
     }
+    //si tu le diste SI que te muestre el total a pagar, si tu pusiste NO, que no te lo muestre
+    printf("Total a pagar: %.2f",contador);
 }
 
 int main()
@@ -314,11 +316,12 @@ int main()
     //interesante... que es "end:"?
     if ((strcmp(trabajo,"SI"))==0) { //Conecta con el case 'i'
         printf("Creando ticket...\n");
-        resumen(a,b,c,d,e,f,g,h);
+        resumen(a,b,c,d,e,f,g,h,contador);
+        //ADSASDASDSADSADADASDASDSADSAD
     }
     else if ((strcmp(trabajo,"NO"))==0){ //Conecta con el case 'i'
         printf("Resumen: Cargando...\n");
-        resumen(a,b,c,d,e,f,g,h);
+        resumen(a,b,c,d,e,f,g,h,contador);
         printf("Vuelva pronto!\n");
     }
 
