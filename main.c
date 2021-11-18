@@ -21,17 +21,21 @@ void limpiarPantalla()
 }
 
 void signup() {
-    FILE *areUNew = fopen("Count.txt","r"); //Un archivo para contar el numero de usuarios que hay se leera
+    FILE *areUNew = fopen("IsThereSomeone.txt","r"); //Un archivo para contar el numero de usuarios que hay se leera
     //Si este no existe, entonces entraremos a la sentencia if, para asi crear el archivo
     if (areUNew == NULL) {
-        FILE *create = fopen("Count.txt","w");//Se crea el archivo, para despues dar a conocer que se creo un usuario
+        FILE *create = fopen("IsThereSomeone.txt","w");//Se crea el archivo, para despues dar a conocer que se creo un usuario
         printf("--Creando un nuevo usuario--\n");
         printf("Por favor, introduzca un nombre de usuario: ");//Datos del usuario
         char username[20];
         fgets(username,20,stdin);//Usando la mejor forma de obtener una string
+        username[(strlen(username))-1] = 0; // POWER UP!!!!!!!!
         printf("Introduzca su contraseña: ");
         char password[20];//Lo bueno de usar una funcion para el login es que despues la variable se va a destruir
         fgets(password,20,stdin);//Espero que esto sea muy safe
+        password[(strlen(password)) - 1] = 0; // POWER UP!!!!!!!!
+        //printf("%lu", strlen(password)); <- in this version doesn't work 'password[strlen(password) - 1] = 0'
+                                                //We need a '(' ')' more...
 
         FILE *data = fopen("Data.txt","a+");//Se crea un pointer para crear el archivo y meter los datos del usuario
         fprintf(data,"%s%s\n",username,password);//Se graban en el archivo los datos
@@ -51,44 +55,77 @@ void signup() {
 }
 
 void createUser() {
-
+    char user[20], password[20];
+    printf("Oh!, parece que ha olvidado su contraseña\n");
+    printf("Cree un nuevo usuario\n");
+    printf("Introduzca un nombre de usuario: ");
+    fgets(user,20,stdin);
+    user[(strlen(user))-1] = 0;
+    printf("Introduzca su contraseña: ");
+    fgets(password,20,stdin);
+    password[(strlen(password))-1] = 0;
+    FILE *data = fopen("Data.txt","a+");
+    fprintf(data,"%s%s\n",user,password);
+    fclose(data);
 }
 
 void login() {
-    char name[20], userPass[20]; //datos desde usuario
-    char username[20], password[20]; //Datos desde files
+    char userPass[20]; //userPass[20]; //datos desde usuario
+    char userName[40];//Pero necesitaremos mas espacios para despues concatenarlas... Y asi poderla comparar con la concatenacion de igotyou
+    //Y ademas que los datos en los archivos no se confundan, esto da que con un usuario no se pueda acceder con la contraseña de algun otro usuario
+    char iGotYou[40]; //Datos desde files
     FILE *login = fopen("Data.txt", "r");//Podemos poner la apertura del file fuera del while para
             //Que no se este abriendo cada vez que se falla el login
-    fscanf(login, "%s\n%s", username, password);//Obtener los datos
+
+    //Podemos contatenar username+password, PERO MEJOR LO GUARDAMOS EN UNA SOLA VARIABLE
+    /*
+    fscanf(login, "%s%s\n", username, password);//Obtener los datos
+    */
+    //fscanf(login, "%s\n", iGotYou); <--  DEBEMOS
+    fscanf(login, "%s", iGotYou); //<- TENER CUIDADO CON EL '\n'
 
     int fail = 0;//Numero de fallas soportadas
+    bool key = false;//salir del bucle
     do {
         //char name[20], userPass[20]; <- No se puede usar en las operaciones booleanas del while
         printf("Nombre de usuario: ");
-        fgets(name, 20, stdin);
-        printf("Contraseña: ");
-        fgets(userPass, 20, stdin);
+        fgets(userName, 20, stdin);
+        printf("Contraseña: "); //Siendo que recuperamos lo que esta en stdin
+        fgets(userPass, 20, stdin); //En fgets se comen el, '\n', el enter, pues stdin lo lee
+        /*
         for (int  i = 0;  i <20 ; ++ i) { //Limpiar el fgets... dado a que tambien absorbe el '\n'
             if (userPass[i]=='\n') { //La string adquiere el \n asi que hay que vaciarselo
                 userPass[i] = '\0';
             }
-
             if (userPass[i]=='\n') { //fgets no es la mejor idea?
-                name[i] = '\0';
+                userName[i] = '\0';
             }
         }
+        */
+        //La limpieza de arriba no sirve tan bien... De hecho es contraproducente y produce bugs...
+        userName[(strlen(userName))-1] = 0;
+        userPass[(strlen(userPass))-1] = 0;
+
+        strcat(userName,userPass);
+
         //FILE *login = fopen("Data.txt", "r"); <- no quiero que se este declarando cada vez
         //char username[20], password[20]; <- No se puede usar en las operaciones booleanas del while
         //fscanf(login, "%s\n%s", username, password); <- muy interesante pero no hace falta que este leyendolo en cada vuelta
 
-
-
-        if (fail>=3) { //Si se equivoca bastantes veces, el programa le pedira registrarse
+        if (fail==3) { //Si se equivoca bastantes veces, el programa le pedira registrarse
             createUser();//Continuar...
         }
         fail++;
+        //..Ir a otro branch porque este va a cambiar bastante
+        rewind(login);
+        while (!feof(login)) {
+            fscanf(login, "%s", iGotYou);
+            if (strcmp(userName,iGotYou)==0 ) {
+                key = true;
+            }
+        }// IT WORKS!!!!! POWER UP!!!!!
 
-    } while (  ((strcmp(name,username))!=0)  &&  ((strcmp(password,userPass))!=0)  ); //Cuidado con el scope
+    } while ( !key ); //Cuidado con el scope
     fclose(login);
 }
 
