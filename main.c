@@ -34,7 +34,9 @@ void signup() {
         fgets(password,20,stdin);//Espero que esto sea muy safe
 
         FILE *data = fopen("Data.txt","a+");//Se crea un pointer para crear el archivo y meter los datos del usuario
-        fprintf(data,"%s\n%s",username,password);//Se graban en el archivo los datos
+        fprintf(data,"%s%s\n",username,password);//Se graban en el archivo los datos
+        //Vamos a combinar las contraseñas, para que asi no pueda confundirse el nombre-contraseña de alguien mas
+        //para que no le pueda acertar a la contraseña de alguien mas y loggearse
         printf("Registro Completado!, vuelva a abrir el programa\n");
         //El registro ha sido completado, se procede a cerrar los files
         fprintf(create,"%d",1);//Y se añade a 1 el file contador para saber que minimo hay 1 usuario registrado ya
@@ -53,8 +55,8 @@ void createUser() {
 }
 
 void login() {
-    char name[20], userPass[20];
-    char username[20], password[20];
+    char name[20], userPass[20]; //datos desde usuario
+    char username[20], password[20]; //Datos desde files
     FILE *login = fopen("Data.txt", "r");//Podemos poner la apertura del file fuera del while para
             //Que no se este abriendo cada vez que se falla el login
     fscanf(login, "%s\n%s", username, password);//Obtener los datos
