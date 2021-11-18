@@ -20,6 +20,76 @@ void limpiarPantalla()
     #endif
 }
 
+void signup() {
+    FILE *areUNew = fopen("Count.txt","r"); //Un archivo para contar el numero de usuarios que hay se leera
+    //Si este no existe, entonces entraremos a la sentencia if, para asi crear el archivo
+    if (areUNew == NULL) {
+        FILE *create = fopen("Count.txt","w");//Se crea el archivo, para despues dar a conocer que se creo un usuario
+        printf("--Creando un nuevo usuario--\n");
+        printf("Por favor, introduzca un nombre de usuario: ");//Datos del usuario
+        char username[20];
+        fgets(username,20,stdin);//Usando la mejor forma de obtener una string
+        printf("Introduzca su contraseña: ");
+        char password[20];//Lo bueno de usar una funcion para el login es que despues la variable se va a destruir
+        fgets(password,20,stdin);//Espero que esto sea muy safe
+
+        FILE *data = fopen("Data.txt","a+");//Se crea un pointer para crear el archivo y meter los datos del usuario
+        fprintf(data,"%s\n%s",username,password);//Se graban en el archivo los datos
+        printf("Registro Completado!, vuelva a abrir el programa\n");
+        //El registro ha sido completado, se procede a cerrar los files
+        fprintf(create,"%d",1);//Y se añade a 1 el file contador para saber que minimo hay 1 usuario registrado ya
+        fclose(data);
+        fclose(create);
+        //fclose(areUNew); <- El archivo no abrio, asi que no se puede cerrar
+        exit(0);//Podemos seguir con el programa, el que no se lea un archivo no quiere decir que sea un error
+                        // INCLUSO! COMO ES DENTRO DE UNA FUNCION LOS PUNTEROS Y DATOS SE ELIMINARAN
+        //Pero es mejor salir del programa, por si acaso tener un puntero = NULL causa algo...
+    }
+    fclose(areUNew);//Casi lo olvido!, si el archivo existe este ya se tiene que cerrar!
+}
+
+void createUser() {
+
+}
+
+void login() {
+    char name[20], userPass[20];
+    char username[20], password[20];
+    FILE *login = fopen("Data.txt", "r");//Podemos poner la apertura del file fuera del while para
+            //Que no se este abriendo cada vez que se falla el login
+    fscanf(login, "%s\n%s", username, password);//Obtener los datos
+
+    int fail = 0;//Numero de fallas soportadas
+    do {
+        //char name[20], userPass[20]; <- No se puede usar en las operaciones booleanas del while
+        printf("Nombre de usuario: ");
+        fgets(name, 20, stdin);
+        printf("Contraseña: ");
+        fgets(userPass, 20, stdin);
+        for (int  i = 0;  i <20 ; ++ i) { //Limpiar el fgets... dado a que tambien absorbe el '\n'
+            if (userPass[i]=='\n') { //La string adquiere el \n asi que hay que vaciarselo
+                userPass[i] = '\0';
+            }
+
+            if (userPass[i]=='\n') { //fgets no es la mejor idea?
+                name[i] = '\0';
+            }
+        }
+        //FILE *login = fopen("Data.txt", "r"); <- no quiero que se este declarando cada vez
+        //char username[20], password[20]; <- No se puede usar en las operaciones booleanas del while
+        //fscanf(login, "%s\n%s", username, password); <- muy interesante pero no hace falta que este leyendolo en cada vuelta
+
+
+
+        if (fail>=3) { //Si se equivoca bastantes veces, el programa le pedira registrarse
+            createUser();//Continuar...
+        }
+        fail++;
+
+    } while (  ((strcmp(name,username))!=0)  &&  ((strcmp(password,userPass))!=0)  ); //Cuidado con el scope
+    fclose(login);
+}
+
 void resumen(bool a,bool b,bool c,bool d,bool e,bool f,bool g,bool h, float contador) {
     printf("Usted ha elegido: \n");//Usar los booleanos para displayear las opciones que ha elegido, y tal vez escribir esto en files
     if (a==true) {
@@ -52,6 +122,8 @@ void resumen(bool a,bool b,bool c,bool d,bool e,bool f,bool g,bool h, float cont
 
 int main()
 {
+    signup();
+    login();
     char nombre[50], direccion[50], placa[20], modelo[20], anio[20], pais[20]; //Las string que ocuparemos para guardar los datos del usuario
     char trabajo[2]; //string para la validacion y saber si se procede el trabajo
     limpiarPantalla(); //limpiar pantalla como dice la funcion
